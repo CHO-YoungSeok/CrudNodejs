@@ -1,0 +1,11 @@
+# Except these files and directories
+!ejs.js
+!public/
+!views/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore package files
+package-lock.json
+package.json

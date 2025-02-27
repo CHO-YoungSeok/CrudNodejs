@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset='UTF-8'>
+<title>ejs 템플릿 엔진 실습</title>
+    <style>
+        table, th, td {
+            border: 1px solid lightgray;
+            text-align: center;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        th {
+            background-color: lightgreen;
+        }
+        table {
+            width: 500px;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <th>no.</th>
+            <!-- <th>index</th> -->
+            <th>회사명</th>
+            <th>가격</th>
+            <th>코드</th>
+            <th>삭제</th>
+            <th>수정</th>
+        </thead>
+        <tbody>
+            <% data.forEach((el, index)=> { %>
+            <tr>
+                <td scope="row"><%= el.no %></td>
+                <td><%= index %></td>
+                <td><%= el.Company %></td>
+                <td><%= el.price %></td>
+                <td><%= el.code %></td>
+                <form action="/delete?_method=DELETE" method="post">
+                    <input type="hidden" name="noKey" id="" value="<%=el.no%>">
+                    <td><input type="submit" value="삭제" onclick="return confirm('정말 삭제하시겠습니까?')"></td>
+                </form>
+                <td><input type="button" value="수정" onclick="location.href='/edit/<%=el.no%>'"></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
+ 
