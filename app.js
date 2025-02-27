@@ -1,5 +1,5 @@
 const TABLE_NAME = "notice"; // 테이블명
-const PRIMARY_KEY = "post_id"; // 기본키
+const PRIMARY_KEY = "post_id"; // 프라임 키
 
 let mysql= require("mysql2");
 let db_info= {
