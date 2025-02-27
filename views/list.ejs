@@ -25,29 +25,26 @@
 <body>
     <table>
         <thead>
-            <th>no.</th>
-            <!-- <th>index</th> -->
-            <th>회사명</th>
-            <th>가격</th>
-            <th>코드</th>
-            <th>삭제</th>
+            <th>제목</th>
+            <th>내용</th>
             <th>수정</th>
+            <th>삭제</th>
         </thead>
         <tbody>
-            <% data.forEach((el, index)=> { %>
+            <% data.forEach(item => { %>
             <tr>
-                <td scope="row"><%= el.no %></td>
-                <td><%= index %></td>
-                <td><%= el.Company %></td>
-                <td><%= el.price %></td>
-                <td><%= el.code %></td>
+                <td style="width: 6em;"><%= item.head %></td>
+                <td style="width: 10em;"><%= item.body %></td>
+                
                 <form action="/delete?_method=DELETE" method="post">
-                    <input type="hidden" name="noKey" id="" value="<%=el.no%>">
+                    <input type="hidden" name="postId" value="<%= item.post_id %>">
                     <td><input type="submit" value="삭제" onclick="return confirm('정말 삭제하시겠습니까?')"></td>
                 </form>
-                <td><input type="button" value="수정" onclick="location.href='/edit/<%=el.no%>'"></td>
+                <td><input type="button" value="수정" onclick="location.href='/edit/<%=item.post_id%>'"></td>
             </tr>
             <% }) %>
+
+
         </tbody>
     </table>
 </body>

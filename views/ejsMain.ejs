@@ -73,16 +73,14 @@ iframe {
  <body>
     <header><%- include('header.ejs') %></header>
     <div>
-    <nav>
-        <p><a href = "/centerFrame" target="section">&nbsp;홈</a></p>
-        <p><a href="/list" target="section">&nbsp;모두 보기</a></p>
-        <hr>
-        <p><a href = "/input" target="section">&nbsp;데이터 입력</a></p>
-        <p><a href="/sqlSearch" target="section">&nbsp;데이터 검색(SQL)</a></p>
-    </nav>
-    <section><iframe src="/centerFrame" name="section"></iframe></section>
-    <aside>aside 입니다.</aside>
+        <nav>
+            <p><a href = "/centerFrame" target="section">&nbsp;홈</a></p>
+            <p><a href="/list" target="section">&nbsp;모두 보기</a></p>
+            <hr>
+            <p><a href = "/input" target="section">&nbsp;데이터 입력</a></p>
+            <p><a href="/sqlSearch" target="section">&nbsp;데이터 검색(SQL)</a></p>
+        </nav>
+        <section><iframe src="/centerFrame" name="section"></iframe></section>
     </div>
-    <footer><%- include(`footer.ejs`) %></footer>
 </body>
 </html>

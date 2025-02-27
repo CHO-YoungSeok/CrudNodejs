@@ -1,11 +1,16 @@
+const TABLE_NAME = "notice"; // 테이블명
+const PRIMARY_KEY = "post_id"; // 기본키
+
 let mysql= require("mysql2");
- let db_info= {
+let db_info= {
     host:"localhost",
     port:"3306",
     user:"root",
     password:"1234",
-    database:"board" 
+    database: "board"
 }
+
+
 
 let conn= mysql.createConnection(db_info);
 conn.connect();
@@ -39,30 +44,27 @@ app.get('/centerFrame', (req, res) =>{
 
 // 메뉴(모든 보기)
 app.get('/list', (req, res) =>{
-    let sql= "SELECT * FROM stock ORDER BY no DESC;"; // 최근 글을 위쪽으로
+    let sql= "SELECT * FROM " + TABLE_NAME + ";";
     conn.query(sql, (err, result) =>{
         if(err) console.log("query is not excuted: "+ err);
         else res.render("list", { data:result});
     });
 });
 
-app.get('/edit/:noKey', (req, res) => {
-    const noKey = req.params.noKey;
-    let sql = "SELECT * FROM stock WHERE no =" + noKey + ";";
+app.get('/edit/:post_id', (req, res) => {
+    const postId = req.params.post_id;
+    let sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + PRIMARY_KEY + " = " + postId + ";";
     conn.query(sql, (err, result) => {
-        if(err) console.log("query is not excute at deit/:noKey : " + err);
-        else res.render("edit", {data: result[0]});
+        if(err) console.log("query is not excute at edit/:post_id : " + err);
+        else res.render("edit", {item: result[0]});
     })
 })
 
 app.put('/editPost',  (req, res) => {
-    const {noEdit, CompanyEdit, priceEdit, codeEdit } = req.body;
-    let sql = "UPDATE stock SET Company = '" + CompanyEdit + "', ";
-    sql += "price=" + priceEdit + ", code=" + codeEdit;
-    sql += " WHERE no=" + noEdit;
-
-    conn.query(sql, (err, result) => {
-        if (err) console.log("err at editPost: " + err);
+    const { postId, eHead, eBody} = req.body;
+    let sql = "UPDATE " + TABLE_NAME + " SET head = ?, body = ? WHERE " + PRIMARY_KEY + " = " + postId + ";";
+    conn.query(sql, [eHead, eBody, postId], (err, result) => {
+        if (err) console.log("at editPost: " + err);
         else {
             let msg = `<script type="text/javascript"> `;
             msg += `alert("수정되었습니다.");`;
@@ -73,12 +75,14 @@ app.put('/editPost',  (req, res) => {
     })
 })
 
+// 삭제 실행
 app.delete('/delete', (req, res) => {
-    const {noKey} = req.body;
-    let sql = "DELETE FROM stock WHERE no=" + noKey + ";";
+    const {postId} = req.body;
+
+    let sql = "DELETE FROM " + TABLE_NAME + " WHERE " + PRIMARY_KEY + " = " + postId + ";";
     conn.query(sql, (err, result) => {
         if(err){
-            console.log("err at delete: " + err);
+            console.log("at delete: " + err);
         }
         else {
             let msg = "<script type='text/javascript'>";
@@ -90,20 +94,16 @@ app.delete('/delete', (req, res) => {
 })
 
 
-
-
-
-// ***************************************************************
 // 메뉴(데이터 입력)
 app.get('/input', (req, res) => {
     res.render("input"); // input.ejs(데이터 입력 화면)
 });
 
-// input.ejs 화면에 입력된 데이터 결과를DB에 저장하기
+// 입력받은 데이터를 DB에 저장하기
 app.post('/inputPost', (req, res) => {
-    const { CompanyInput, priceInput, codeInput } = req.body;
-    let sql = "INSERT INTO stock (Company, price, code) VALUES (?, ?, ?)";
-    conn.query(sql, [CompanyInput, priceInput, codeInput], (err, result) => {
+    const { head, body } = req.body;
+    let sql = "INSERT INTO " + TABLE_NAME + " (head, body) VALUES (?, ?);";
+    conn.query(sql, [head, body], (err, result) => {
         if (err) console.log("query is not executed: " + err);
         else {
             let msg = `<script type="text/javascript">`;
@@ -115,13 +115,12 @@ app.post('/inputPost', (req, res) => {
     });
 });
 
-// *************************************************************************
-// 메뉴(데이터 검색)
+// 검색창 랜더링링
 app.get('/sqlSearch', (req, res) => {
     res.render("sqlSearch"); // sqlSearch.ejs(SQL 구문 입력 화면)
 });
 
-// TEXT에 입력된 검색 조건을 실행 한 결과를 화면에 표시
+// 검색 실행.
 app.post('/sqlSearch', (req, res) => {
     const { inputSearch } = req.body;
     let sql = inputSearch;

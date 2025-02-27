@@ -12,32 +12,29 @@
  </head>
 <body>
     <form action="/editPost?_method=PUT" method="post">
-    <table>
-    <tr>
-        <th>데이터 수정 화면</th>
-    </tr>
-    <tr>
-        <td>
-        <hr>
-        <input type="hidden" name="noEdit" value="<%=data.no %>">
-        </td>
-    </tr>
-    <tr>
-        <td>회사명 : <input type="text" name="CompanyEdit" value="<%=data.Company %>"></td>
-    </tr>
-    <tr>
-        <td>가격 : <input type="text" name="priceEdit" value="<%=data.price %>"></td>
-    </tr>
-    <tr>
-        <td>코드 : <input type="text" name= "codeEdit" value="<%=data.code %>"></td>
-    </tr>    
-    <tr>
-        <td>
-        <input type="submit" value="수정"> &nbsp;
-        <input type="reset" value="취소">
-        </td>
-    </tr>
-    </table>
+        <table>
+            <tr>
+                <th>데이터 수정 화면</th>
+            </tr>
+            <hr>
+            <tr>
+                <td>
+                    <input type="hidden" name="postId" value="<%= item.post_id %>">
+                </td>
+            </tr>
+            <tr>
+                <td>제목 : <input type="text" name="eHead" value="<%= item.head %>"></td>
+            </tr>
+            <tr>
+                <td>내용 : <textarea name="eBody" cols="20" rows="10" maxlength="100" value="<%= item.body %>"></textarea></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="수정"> &nbsp;
+                    <input type="reset" value="취소">
+                </td>
+            </tr>
+        </table>
     
     </form>
     </body>

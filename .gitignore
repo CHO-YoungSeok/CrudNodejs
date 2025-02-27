@@ -2,10 +2,11 @@
 !ejs.js
 !public/
 !views/
+!package.json
+
 
 # Ignore node_modules
 node_modules/
 
 # Ignore package files
 package-lock.json
-package.json
