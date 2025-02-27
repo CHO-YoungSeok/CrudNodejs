@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DB 데이터 다루기</title>
+<style>
+html, body {
+/* 추가함 width */
+width: 1000px;
+margin: 0;
+padding: 0;
+height: 2000px;
+}
+header{
+width: 1000px;
+height: 100px;
+margin: 0auto;
+background-color: #efffe2;
+/* justify-content: center;
+align-items: center; */
+}
+div {
+width: 1000px;
+height: 500px;
+margin: 0auto;
+/* padding: 2px; */
+align-content: center;
+}
+nav {
+width: 200px;
+height: 100%;
+float: left;
+background-color: rgba(255, 200, 0, 0.21);
+}
+section {
+width: 650px;
+height: 100%;
+float: left;
+background-color: white;
+}
+aside{
+width: 150px;
+height: 100%;
+float: left;
+background-color: rgb(247, 246, 246);
+}
+
+footer {
+ width: 1000px;
+ height: 100px;
+ background-color: rgba(237, 237, 237, 0.205);
+ clear: both;
+ margin: 0 auto;
+ padding-left: 0px;
+ display: flex;
+ }
+iframe {
+ width: 100%;
+ height: 100%;
+ border: none;
+ }
+ a {
+ text-decoration: none;
+ }
+ h1 {
+ padding-left: 100px;
+ text-align: center;
+ padding-top: 30px;
+ }
+ </style>
+ </head>
+
+ <body>
+    <header><%- include('header.ejs') %></header>
+    <div>
+    <nav>
+        <p><a href = "/centerFrame" target="section">&nbsp;홈</a></p>
+        <p><a href="/list" target="section">&nbsp;모두 보기</a></p>
+        <hr>
+        <p><a href = "/input" target="section">&nbsp;데이터 입력</a></p>
+        <p><a href="/sqlSearch" target="section">&nbsp;데이터 검색(SQL)</a></p>
+    </nav>
+    <section><iframe src="/centerFrame" name="section"></iframe></section>
+    <aside>aside 입니다.</aside>
+    </div>
+    <footer><%- include(`footer.ejs`) %></footer>
+</body>
+</html>

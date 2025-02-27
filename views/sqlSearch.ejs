@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+ <html lang="ko">
+ <head>
+ <meta charset='UTF-8'>
+ <title>검색어 입력</title>
+ <style>
+ table {
+ width: 500px;
+ }
+ table, th, td {
+ border: 1px solid lightgreen;
+ text-align: center;
+ border-collapse: collapse;
+ }
+ th {
+ height: 30px;
+ background-color: lightgreen;
+ }
+ input[type=text] {
+ border: 1px solid lightgray;
+ height: 25px;
+ }
+ </style>
+ </head>
+
+<body>
+<table>
+<thead>
+    <tr>
+        <th>검색 조건(SQL 문장) 입력</th>
+    </tr>
+</thead>
+<tbody>
+    <form action="/sqlSearch" method="POST">
+        <tr style="height: 70px;">
+            <td>
+                <p>
+                    <input type="text" name="inputSearch" size="60px" placeholder="select 필드명 from 테이블명 where 조건;">
+                </p>
+                <p>
+                    <input type="submit" value=" 검 색 ">
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="reset" value=" 취 소 " id="">
+                </p>
+            </td>
+        </tr>
+    </form>
+</tbody>
+</table>
+</body>
+</html>
