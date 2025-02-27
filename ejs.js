@@ -44,7 +44,7 @@ app.get('/centerFrame', (req, res) =>{
 
 // 메뉴(모든 보기)
 app.get('/list', (req, res) =>{
-    let sql= "SELECT * FROM " + TABLE_NAME + ";";
+    let sql= "SELECT * FROM " + TABLE_NAME + " ORDER BY post_id DESC;";
     conn.query(sql, (err, result) =>{
         if(err) console.log("query is not excuted: "+ err);
         else res.render("list", { data:result});
@@ -79,8 +79,8 @@ app.put('/editPost',  (req, res) => {
 app.delete('/delete', (req, res) => {
     const {postId} = req.body;
 
-    let sql = "DELETE FROM " + TABLE_NAME + " WHERE " + PRIMARY_KEY + " = " + postId + ";";
-    conn.query(sql, (err, result) => {
+    let sql = "DELETE FROM " + TABLE_NAME + " WHERE " + PRIMARY_KEY + " = ?;";
+    conn.query(sql, [postId], (err, result) => {
         if(err){
             console.log("at delete: " + err);
         }
@@ -122,11 +122,11 @@ app.get('/sqlSearch', (req, res) => {
 
 // 검색 실행.
 app.post('/sqlSearch', (req, res) => {
-    const { inputSearch } = req.body;
-    let sql = inputSearch;
-    conn.query(sql, (err, result) => {
+    const { search } = req.body;
+    let sql = "SELECT * FROM " + TABLE_NAME + " WHERE head = ? ORDER BY post_id DESC;";
+    conn.query(sql, [search], (err, result) => {
         if (err) {
-            res.send('<H1>SQL 조건문을 정확히 입력하세요.</H1><BR>' + err);
+            res.send('<H1> 없는 제목입니다다.</H1><BR>' + err);
         } else res.render("list", { data: result }); // list.ejs(DB 테이블 목록)
     });
 });

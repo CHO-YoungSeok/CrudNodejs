@@ -33,8 +33,8 @@
         <tbody>
             <% data.forEach(item => { %>
             <tr>
-                <td style="width: 6em;"><%= item.head %></td>
-                <td style="width: 10em;"><%= item.body %></td>
+                <td style="width: 10em;"><%= item.head %></td>
+                <td style="width: 15em;"><%= item.body %></td>
                 
                 <form action="/delete?_method=DELETE" method="post">
                     <input type="hidden" name="postId" value="<%= item.post_id %>">
